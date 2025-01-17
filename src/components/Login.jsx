@@ -19,10 +19,14 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(`${base_api_url}/login`, {
-        username: username,
-        password: password,
-      });
+      const response = await axios.post(
+        `${base_api_url}/login`,
+        {
+          username: username,
+          password: password,
+        },
+        { withCredentials: true }
+      );
 
       if (response?.data?.status) {
         alert(response?.data?.message);

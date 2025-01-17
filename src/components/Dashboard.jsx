@@ -8,7 +8,7 @@ const Dashboard = () => {
   const [recordData, setRecordData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalRecords, setTotalRecords] = useState(0);
-  const [searchQuery, setSearchQuery] = useState(""); 
+  const [searchQuery, setSearchQuery] = useState("");
   const limit = 50;
 
   useEffect(() => {
@@ -18,7 +18,8 @@ const Dashboard = () => {
   const fetchData = async (page, search) => {
     try {
       const response = await axios.get(
-        `${base_api_url}/records?page=${page}&limit=${limit}&search=${search}` // Pass search query to API
+        `${base_api_url}/records?page=${page}&limit=${limit}&search=${search}`,
+        { withCredentials: true } // Pass search query to API
       );
       const records = response?.data?.records || [];
       setRecordData(
@@ -59,7 +60,7 @@ const Dashboard = () => {
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   return (
@@ -72,19 +73,19 @@ const Dashboard = () => {
             type="text"
             placeholder="Search Records by Domain Name"
             value={searchQuery}
-            onChange={handleSearch} 
+            onChange={handleSearch}
           />
         </div>
         <Box sx={{ height: 600, width: "100%" }}>
           <DataGrid
             rows={recordData}
             columns={columns}
-            rowCount={totalRecords} 
-            paginationMode="server" 
+            rowCount={totalRecords}
+            paginationMode="server"
             pagination
-            pageSize={limit} 
-            onPageChange={(newPage) => setCurrentPage(newPage + 1)} 
-            page={currentPage - 1} 
+            pageSize={limit}
+            onPageChange={(newPage) => setCurrentPage(newPage + 1)}
+            page={currentPage - 1}
             checkboxSelection
             disableRowSelectionOnClick
           />
