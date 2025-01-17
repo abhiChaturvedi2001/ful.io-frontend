@@ -18,7 +18,7 @@ const Dashboard = () => {
   const fetchData = async (page, search) => {
     try {
       const response = await axios.get(
-        `${base_api_url}/records?page=${page}&limit=${limit}&search=${search}`,
+        `${base_api_url}/auth/records?page=${page}&limit=${limit}&search=${search}`,
         { withCredentials: true } // Pass search query to API
       );
       const records = response?.data?.records || [];
